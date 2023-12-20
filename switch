@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        int n = 12823, rem, zero = 0, uno = 0, due = 0, tre = 0, quattro = 0, cinque = 0, sei = 0, sette = 0, otto = 0, nove = 0;
+        while (n > 0) {
+            rem = n % 10;
+            switch (rem) {
+                case (0):
+                    zero = zero + 1;
+                    break;
+                case (1):
+                    uno = uno + 1;
+                    break;
+                case (2):
+                    due = due + 1;
+                    break;
+                case (3):
+                    tre = tre + 1;
+                    break;
+                case (4):
+                    quattro = quattro + 1;
+                    break;
+                case (5):
+                    cinque = cinque + 1;
+                    break;
+                case (6):
+                    sei = sei + 1;
+                    break;
+                case (7):
+                    sette = sette + 1;
+                    break;
+                case (8):
+                    otto = otto + 1;
+                    break;
+                case (9):
+                    nove = nove + 1;
+                    break;
+            }
+            n = n / 10;
+        }
+    }
+}
