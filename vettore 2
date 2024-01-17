@@ -1,0 +1,44 @@
+import java.util.Random;
+import java.util.Scanner;
+
+
+public class Npari {
+    public static void main(String[] args) {
+        int n;
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.println("Quanti numeri casuali vuoi generare?");
+        n = sc.nextInt();
+
+
+        int[] vettore = caricaVettore(n);
+        int[] vettore1 = vettore;
+
+
+        System.out.println("Vettore con solo numeri pari:");
+        stampaVettore(vettore);
+    }
+
+
+    // Metodo per caricare n valori pari casuali in un vettore
+    private static int[] caricaVettore(int n) {
+        int casuale;
+        int[] vettore = new int[n];
+        Random rn = new Random();
+        for (int i = 0; i < n; i++) {
+            // Genera solo numeri pari
+            casuale = rn.nextInt(50) * 2;
+            vettore[i] = casuale;
+        }
+        return vettore;
+    }
+
+
+    // Metodo per stampare un vettore
+    private static void stampaVettore(int[] vettore) {
+        for (int i = 0; i < vettore.length; i++) {
+            System.out.println(vettore[i]);
+        }
+    }
+}
