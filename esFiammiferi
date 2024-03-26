@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner tastiera = new Scanner(System.in);
+
+        int fiammiferi = 21;
+        int giocatore = 1;
+
+        System.out.println("\nBenvenuto al gioco dei 21 fiammiferi!");
+
+        while (fiammiferi > 0) {
+            System.out.println("\nGiocatore " + giocatore + ", è il tuo turno.");
+            System.out.print("Quantità da prelevare (da 1 a 3): ");
+
+            int quanti = tastiera.nextInt();
+
+            if (quanti < 1 || quanti > 3 || quanti > fiammiferi) {
+                System.out.println("Quantità non valida. Errore, riprova.");
+                continue;
+            }
+
+            fiammiferi = fiammiferi - quanti;
+
+            if (fiammiferi == 0) {
+                System.out.println("\nGiocatore " + giocatore + " HA VINTO!");
+            } else {
+                System.out.println("Fiammiferi rimanenti: " + fiammiferi);
+                if (giocatore == 1) {
+                    giocatore = 2;
+                } else {
+                    giocatore = 1;
+                }
+            }
+        }
+    }
+}
