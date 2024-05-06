@@ -1,0 +1,139 @@
+import java.util.Scanner;
+
+public class esArray {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int l;
+        System.out.println("Inserisci la lunghezza dell'array: ");
+        l = sc.nextInt();
+
+        int[] array = new int[l];
+
+        System.out.println("Inserisci gli elemnti dell'array: ");
+
+        for (int i = 0; i < l; i++) {
+            int num = sc.nextInt();
+            array[i] = num;
+        }
+
+        int[] arraySenzaDoppioni = eliminaNumDoppi(array);
+        System.out.println("Array senza duplicati: ");
+        printArray(arraySenzaDoppioni);
+
+        int[] arrayDispari = getOddNumbers(arraySenzaDoppioni);
+        int[] arrayPari = getEvenNumbers(arraySenzaDoppioni);
+
+        selectionSort(arrayDispari);
+        selectionSort(arrayPari);
+
+        System.out.print("Numeri dispari in ordine crescente: ");
+        printArray(arrayDispari);
+        System.out.print("Numeri pari in ordine crescente: ");
+        printArray(arrayPari);
+
+        int[] mergedArray = mergeArrays(arrayDispari, arrayPari);
+        System.out.print("Array con numeri dispari a sinistra e pari a destra: ");
+        printArray(mergedArray);
+    }
+
+    public static int[] eliminaNumDoppi(int[] array) {
+        int n = array.length;
+        if (n == 0 || n == 1) {
+            return array;
+        }
+
+        int[] temp = new int[n];
+        int j = 0;
+
+        for (int i = 0; i < n-1; i++) {
+            if (array[i] != array[i+1]) {
+                temp[j++] = array[i];
+            }
+        }
+        temp[j++] = array[n-1];
+
+        int[] arraySenzaDoppi = new int[j];
+        for (int i = 0; i < j; i++) {
+            arraySenzaDoppi[i] = temp[i];
+        }
+
+        return arraySenzaDoppi;
+    }
+
+    public static int[] getOddNumbers(int[] array) {
+        int count = 0;
+        for (int num : array) {
+            if (num % 2 != 0) {
+                count++;
+            }
+        }
+
+        int[] oddNumbers = new int[count];
+        int index = 0;
+        for (int num : array) {
+            if (num % 2 != 0) {
+                oddNumbers[index++] = num;
+            }
+        }
+
+        return oddNumbers;
+    }
+
+    public static int[] getEvenNumbers(int[] array) {
+        int count = 0;
+        for (int num : array) {
+            if (num % 2 == 0) {
+                count++;
+            }
+        }
+
+        int[] evenNumbers = new int[count];
+        int index = 0;
+        for (int num : array) {
+            if (num % 2 == 0) {
+                evenNumbers[index++] = num;
+            }
+        }
+
+        return evenNumbers;
+    }
+
+    public static void selectionSort(int[] array) {
+        int n = array.length;
+        for (int i = 0; i < n-1; i++) {
+            int minIndex = i;
+            for (int j = i+1; j < n; j++) {
+                if (array[j] < array[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            int temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+        }
+    }
+
+    public static int[] mergeArrays(int[] array1, int[] array2) {
+        int n1 = array1.length;
+        int n2 = array2.length;
+        int[] mergedArray = new int[n1 + n2];
+
+        for (int i = 0; i < n1; i++) {
+            mergedArray[i] = array1[i];
+        }
+
+        for (int i = 0; i < n2; i++) {
+            mergedArray[n1 + i] = array2[i];
+        }
+
+        return mergedArray;
+    }
+
+    public static void printArray(int[] array) {
+        for (int num : array) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
