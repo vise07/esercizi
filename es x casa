@@ -9,6 +9,7 @@ public class Main {
 
         boolean uscita;
 
+        //ciclo do while per inserire la lunghezza dell'array corretta (da 8 a 10)
         do {
             System.out.println("Inserisci la lunghezza del tuo array che vada da 8 a 10: ");
             l = sc.nextInt();
@@ -26,9 +27,12 @@ public class Main {
 
         System.out.println("Inserisci dei numeri interi e non ripetuti che vadano da 1 a 30 che compongono il tuo array: ");
 
+        //ciclo for per inserire i numeri
         for (int i = 0; i < l; i++) {
             int num;
             boolean numOK;
+
+            //ciclo do while per inserire i numeri che compongono l'array (da 1 a 30)
             do {
                 num = sc.nextInt();
                 if(num > 0 && num < 31){
@@ -43,36 +47,75 @@ public class Main {
             array[i] = num;
         }
 
+        //invocazione metodo
+        array = eliminaDoppi(array);
 
+        System.out.println("Ecco il tuo array senza duplicati: ");
 
-    }
-
-
-}
-
-
-/*
-int[] array2 = array1;
-
-ordinamentoSelectionSort(array1);
-
-System.out.println("Il tuo array ordinato con il selection sort e':");
-System.out.println(array1);
-}
-
-public static int[] ordinamentoSelectionSort(int[] array1) {
-int posMin, temp;
-for (int i = 0; i < array1.length; i++) {
-    posMin = i;
-    for (int j = 0; j < array1.length - 1; j++) {
-        if (array1[j] < array1[posMin]) {
-            posMin = j;
+        //stampa del contenuto delle celle dell'array senza numeri doppi
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
         }
-        temp = array1[i];
-        array1[i] = array1[posMin];
-        array1[posMin] = temp;
+
+        int[][] arrayDiviso = new int[][];
+        //invocazione metodo
+        arrayDiviso = divideArray(array);
+
+        System.out.println("\nEcco il tuo array diviso: ");
+
+        //stampa dell'array diviso fra numeri dispari e pari
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+
+
+    }
+
+    //Metodo che elimina i numeri doppi
+    public static int[] eliminaDoppi (int[] array){
+
+        int[] arrayNoDoppi = new int[array.length];
+
+        int contaDoppi = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            boolean doppi = false;
+            for (int j = 0; j < contaDoppi; j++) {
+                if (array[i] == arrayNoDoppi[j]) {
+                    doppi = true;
+                    break;
+                }
+            }
+            if (!doppi) {
+                arrayNoDoppi[contaDoppi] = array[i];
+                contaDoppi++;
+            }
+        }
+
+        return arrayNoDoppi;
+    }
+
+    public static int[][] divideArray(int[] arr) {
+        int[] oddPart = new int[0];
+        int[] evenPart = new int[0];
+
+        for (int num : arr) {
+            if (num % 2 == 1) {
+                oddPart = addElement(oddPart, num);
+            } else {
+                evenPart = addElement(evenPart, num);
+            }
+        }
+        
+        int[] result = new int[0];
+        
+        return result;
+    }
+
+    private static int[] addElement(int[] arr, int num) {
+        int[] newArr = new int[arr.length + 1];
+        System.arraycopy(arr, 0, newArr, 0, arr.length);
+        newArr[arr.length] = num;
+        return newArr;
     }
 }
-return array1;
-}
-*/
