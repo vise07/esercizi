@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int l;
+
+        boolean uscita;
+
+        do {
+            System.out.println("Inserisci la lunghezza del tuo array che vada da 8 a 10: ");
+            l = sc.nextInt();
+            if (l < 8 || l > 10) {
+                System.out.println("Lunghezza array errata.");
+                uscita = true;
+            } else {
+                uscita = false;
+            }
+        } while (uscita);
+
+        System.out.println("Lunghezza array accettabile.");
+
+        int[] array = new int[l];
+
+        System.out.println("Inserisci dei numeri interi e non ripetuti che vadano da 1 a 30 che compongono il tuo array: ");
+
+        for (int i = 0; i < l; i++) {
+            int num;
+            boolean numOK;
+            do {
+                num = sc.nextInt();
+                if(num > 0 && num < 31){
+                    System.out.println("Numero compreso");
+                    numOK = true;
+                } else {
+                    System.out.println("Numero non compreso, reinserisci");
+                    numOK = false;
+                }
+            } while (!numOK);
+
+            array[i] = num;
+        }
+
+
+
+    }
+
+
+}
+
+
+/*
+int[] array2 = array1;
+
+ordinamentoSelectionSort(array1);
+
+System.out.println("Il tuo array ordinato con il selection sort e':");
+System.out.println(array1);
+}
+
+public static int[] ordinamentoSelectionSort(int[] array1) {
+int posMin, temp;
+for (int i = 0; i < array1.length; i++) {
+    posMin = i;
+    for (int j = 0; j < array1.length - 1; j++) {
+        if (array1[j] < array1[posMin]) {
+            posMin = j;
+        }
+        temp = array1[i];
+        array1[i] = array1[posMin];
+        array1[posMin] = temp;
+    }
+}
+return array1;
+}
+*/
