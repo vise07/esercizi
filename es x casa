@@ -4,9 +4,9 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-
+        int[] oddPart = new int[0];
+        int[] evenPart = new int[0];
         int l;
-
         boolean uscita;
 
         //ciclo do while per inserire la lunghezza dell'array corretta (da 8 a 10)
@@ -35,7 +35,7 @@ public class Main {
             //ciclo do while per inserire i numeri che compongono l'array (da 1 a 30)
             do {
                 num = sc.nextInt();
-                if(num > 0 && num < 31){
+                if (num > 0 && num < 31) {
                     System.out.println("Numero compreso");
                     numOK = true;
                 } else {
@@ -56,23 +56,18 @@ public class Main {
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + " ");
         }
-
-        int[][] arrayDiviso = new int[][];
         //invocazione metodo
-        arrayDiviso = divideArray(array);
-
-        System.out.println("\nEcco il tuo array diviso: ");
+        int[] arrayDiviso = dividiArray(array, oddPart, evenPart);
+        System.out.println("\nEcco il tuo array ordinato: ");
 
         //stampa dell'array diviso fra numeri dispari e pari
         for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
+            System.out.print(arrayDiviso[i] + " ");
         }
-
-
     }
 
     //Metodo che elimina i numeri doppi
-    public static int[] eliminaDoppi (int[] array){
+    public static int[] eliminaDoppi(int[] array) {
 
         int[] arrayNoDoppi = new int[array.length];
 
@@ -95,27 +90,39 @@ public class Main {
         return arrayNoDoppi;
     }
 
-    public static int[][] divideArray(int[] arr) {
-        int[] oddPart = new int[0];
-        int[] evenPart = new int[0];
-
-        for (int num : arr) {
-            if (num % 2 == 1) {
-                oddPart = addElement(oddPart, num);
+    public static int[] dividiArray(int[] array, int[] oddPart, int[] evenPart) {
+        int contatore = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] % 2 == 1) {
+                oddPart = addElement(oddPart, array[i]);
             } else {
-                evenPart = addElement(evenPart, num);
+                evenPart = addElement(evenPart, array[i]);
             }
         }
-        
-        int[] result = new int[0];
-        
-        return result;
+        int[] arrayDiviso = new int[oddPart.length + evenPart.length];
+        for (int i = 0; i < arrayDiviso.length; i++) {
+            arrayDiviso[contatore] = oddPart[i];
+            if (i == oddPart.length - 1) {
+                break;
+            }
+            contatore++;
+        }
+        for (int i = 0; i < arrayDiviso.length; i++) {
+            arrayDiviso[contatore] = evenPart[i];
+            if (i == evenPart.length - 1) {
+                break;
+            }
+            contatore++;
+        }
+        return arrayDiviso;
     }
 
-    private static int[] addElement(int[] arr, int num) {
-        int[] newArr = new int[arr.length + 1];
-        System.arraycopy(arr, 0, newArr, 0, arr.length);
-        newArr[arr.length] = num;
+    private static int[] addElement(int[] array, int num) {
+        int[] newArr = new int[array.length + 1];
+        for (int i = 0; i < array.length; i++) {
+            newArr[i] = array[i];
+        }
+        newArr[array.length] = num;
         return newArr;
     }
 }
