@@ -1,0 +1,115 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int l;
+
+        boolean uscita;
+
+        //ciclo do-while per inserire la lunghezza dell'array che va da 8 a 10
+        do {
+            System.out.println("Inserisci la lunghezza del tuo array che vada da 8 a 10: ");
+            l = sc.nextInt();
+            if (l < 8 || l > 10) {
+                System.out.println("Lunghezza array errata.");
+                uscita = true;
+            } else {
+                uscita = false;
+            }
+        } while (uscita);
+
+        System.out.println("Lunghezza array accettabile.");
+
+        int[] array = new int[l];
+
+        System.out.println("Inserisci dei numeri interi e non ripetuti che vadano da 1 a 30 che compongono il tuo array: ");
+
+        //ciclo for per inserire i numeri che compongono l'array che vanno da 1 a 30
+        for (int i = 0; i < l; i++) {
+
+            int num;
+            boolean numOK;
+
+            //ciclo do while controllare che i numeri inseriti vadano bene (da 1 a 30)
+            do {
+                num = sc.nextInt();
+                if (num > 0 && num < 31) {
+                    System.out.println("Numero compreso");
+                    numOK = true;
+                } else {
+                    System.out.println("Numero non compreso, reinserisci");
+                    numOK = false;
+                }
+            } while (!numOK);
+
+            array[i] = num;
+        }
+
+        //invocazione metodo per ordinare i numeri pari dell'array
+        ordinaPariInPosizione(array);
+
+        System.out.println("\nEcco il tuo array ordinato per i numeri pari:");
+
+        System.out.println(Arrays.toString(array));
+    }
+
+
+    //metodo che ordina solamente i numeri pari dell'array
+    public static void ordinaPariInPosizione(int[] array) {
+        int contaPari = 0;
+
+        //ciclo for che controlla per i contare quanti numeri pari ci sono nell'array (%2 == 0)
+        for (int num : array) {
+            if (num % 2 == 0) {
+                contaPari++;
+            }
+        }
+
+        int[] pari = new int[contaPari];
+        int[] posizioni = new int[contaPari];
+        int indice = 0;
+
+        //ciclo for per identificare le posizioni dell'array con i numeri pari che forse verranno invertiti
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] % 2 == 0) {
+                pari[indice] = array[i];
+                posizioni[indice] = i;
+
+                indice++;
+            }
+        }
+
+        //invocazione del metodo di ordinamento con il selection sort
+        selectionSort(pari);
+
+        //ciclo for per riempire il nuovo array con i numeri pari ordinati
+        for (int i = 0; i < pari.length; i++) {
+            array[posizioni[i]] = pari[i];
+        }
+    }
+
+
+    //metodo di ordinamento usando il selection sort per i numeri pari e cambiandoli nelle loro nuove rispettive posizioni
+    public static void selectionSort(int[] array) {
+
+        //ciclo for che serve per scorrere l'array
+        for (int i = 0; i < array.length - 1; i++) {
+            int posMin = i;
+
+            //ciclo for per invertire i numeri usando una variabile tempornea
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[j] < array[posMin]) {
+                    posMin = j;
+                }
+            }
+            int temp = array[posMin];
+            array[posMin] = array[i];
+            array[i] = temp;
+        }
+    }
+}
